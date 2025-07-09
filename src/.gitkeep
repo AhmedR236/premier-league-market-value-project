@@ -1,0 +1,3 @@
+Files dealing with ML models, training/testing
+Loading webscraped stuff into MongoDB, then formatting it into a db, then cleaning it under eda
+We dont need to use a MySQL db for the player stats since they are already structured
