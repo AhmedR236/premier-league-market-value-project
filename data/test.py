@@ -14,6 +14,10 @@ df2 = fbref2.read_player_season_stats(stat_type="standard") #24/25
 dfclean = df[df['Playing Time', 'Min'] >= 2280]
 df2clean = df2[df2['Playing Time', 'Min'] >= 2280]
 
+dfclean.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in dfclean.columns]
+df2clean.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in df2clean.columns]
+
+
 dfclean.to_csv('cleaned23_24.csv', index = 'false', encoding='utf-8-sig')
 df2clean.to_csv('cleaned24_25.csv', index = 'false', encoding='utf-8-sig')
 
