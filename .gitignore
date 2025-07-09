@@ -1,0 +1,28 @@
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Data files (raw or large processed dumps—track only cleaned CSVs if you want)
+data/raw/
+data/processed/
+
+# Logs and outputs
+logs/
+outputs/
+
+# VS Code settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Config secrets
+config/*.yml
+config/*.json
