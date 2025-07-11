@@ -26,7 +26,8 @@ df1 = df1[df1['name'] != 'Ipswich Town Football Club'] #Removing Ipswich Town as
 df1['name'] = df1['name'].str.replace('Football Club', '', regex=False) #Removing 'Football Club' from club names
 df1['name'] = df1['name'].str.replace('FC', '', regex=False) #Removing 'FC' from club names
 df1['name'] = df1['name'].str.replace('Association', '', regex=False) #Removing Association
-df1['name'] = df1['name'].str.replace('and Hove Albion', '', regex=False) #Removing Brighton's wonky name 
+df1['name'] = df1['name'].str.replace('Hotspur', '', regex=False) #Removing Hotspur
+df1['name'] = df1['name'].str.replace('and Hove Albion', '', regex=False) #Removing Brighton's wonky name
 
 #print(df1)
 #print(f'Count: {len(df1)}')
