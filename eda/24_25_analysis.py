@@ -9,20 +9,16 @@ import plotly.express as px
 df = pd.read_csv('data/official_24_25.csv')
 
 df = df.rename(columns={'Market  Value (EUROS)': 'MARKET VALUE (EUROS)'})
-def convert_market_value(val):
-    if pd.isna(val):
-        return None
-    val = str(val).replace('€', '').replace('m', '').replace(',', '').strip()
-    try:
-        return int(float(val) * 1_000_000)
-    except ValueError:
-        return None
-
-df['MARKET VALUE (EUROS)'] = df['MARKET VALUE (EUROS)'].apply(convert_market_value)
 
 df['MARKET VALUE (EUROS)'] = df['MARKET VALUE (EUROS)'].astype(int) 
 
-print(df.dtypes) 
+#print(df.dtypes) 
 
-df.to_csv('data/official_24_25.csv', index=False, encoding='utf-8-sig')
+#df.to_csv('data/official_24_25.csv', index=False, encoding='utf-8-sig')
+
+# Had a minor inconsistency issue and had to fix it 
+#######################################################################################################
+
+#Analysis
+
 

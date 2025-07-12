@@ -3,15 +3,14 @@ import pandas as pd
 df1 = pd.read_csv('data/cleaned24_25.csv')
 df2 = pd.read_csv('data/24_25_MV.csv')
 
-df1['player'] = df1['player'].str.strip().str.lower()
-df2['Player Name'] = df2['Player Name'].str.strip().str.lower()
-
+df1['player'] = df1['player'].str.strip().str.lower()  # Fixing player names so they can be merged
+df2['Player Name'] = df2['Player Name'].str.strip().str.lower()  # Fixing player names so they can be merged
 
 df = pd.merge(df1, df2, left_on=['player'], right_on=['Player Name'], how='left')
-df = df.drop(['Nationality', 'Position', 'Age'], axis=1)
-df = df.drop_duplicates(subset=['player'])
+df = df.drop(['Nationality', 'Position', 'Age'], axis=1) # Dropping unnecessary columns
+df = df.drop_duplicates(subset=['player'])  # Removing duplicate players
 
-def convert_market_value(val):
+def convert_market_value(val): # Replacing everything except numbers to numbers 
     if pd.isna(val):
         return None
     val = str(val).replace('€', '').replace('m', '').replace(',', '').strip()
@@ -20,7 +19,7 @@ def convert_market_value(val):
     except ValueError:
         return None
 
-df['Market Value'] = df['Market Value'].apply(convert_market_value)
+df['Market Value'] = df['Market Value'].apply(convert_market_value) 
 
 df.to_csv('data/RAW_merged_24_25.csv', index=False, encoding='utf-8-sig')
 
