@@ -22,7 +22,6 @@ def convert_market_value(val):
 
 df['Market Value'] = df['Market Value'].apply(convert_market_value)
 
-
 df.to_csv('data/RAW_merged_24_25.csv', index=False, encoding='utf-8-sig')
 
 ############################################################################################################################################################
