@@ -15,6 +15,8 @@ df = df.drop(['CLUB', 'PLAYER'], axis=1)
 
 #df.to_csv('data/RAW_merged_23_24.csv', index=False, encoding='utf-8-sig')
 
-################################################################################################################################
-#Some players didnt get merged due to name inconsistencies, so I merged them manually and saved it in official_merged_23_24.csv
-################################################################################################################################
+############################################################################################################################################################
+#Some players didnt get merged due to name inconsistencies, so I corrected the inconsistencies and merged them manually and saved it in official_23_24.csv
+############################################################################################################################################################
+
+
