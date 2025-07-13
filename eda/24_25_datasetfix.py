@@ -13,6 +13,6 @@ df['MARKET VALUE (EUROS)'] = df['MARKET VALUE (EUROS)'].astype(int)
 # Had a minor inconsistency issue and had to fix it 
 #######################################################################################################
 
-#Analysis
+
 
 

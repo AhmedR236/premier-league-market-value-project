@@ -46,3 +46,9 @@ plt.xlabel('Age')
 plt.ylabel('Market Value (Millions of Euros)')
 plt.grid(False)
 plt.show()
+
+#market value outliers
+sns.boxplot(data=df, y='Market Value (EUROS)')
+plt.title("Market Value Outliers")
+plt.ylabel("Market Value (Millions of Euros)")
+plt.show()
