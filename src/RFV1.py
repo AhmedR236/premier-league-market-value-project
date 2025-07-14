@@ -1,34 +1,43 @@
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score
 import pandas as pd
 import numpy as np
 from sklearn.metrics import mean_squared_error, r2_score
+import matplotlib.pyplot as plt
 
 df = pd.read_csv("../data/official_23_24.csv")
 df2 = pd.read_csv("../data/official_24_25.csv")
+
+df = df[df['Market Value (EUROS)'] < 100000000] # Filtering out players with market value over 100 million euros, as they are outliers and making model worse
+df2 = df2[df2["MARKET VALUE (EUROS)"] < 100000000]
+
 Y = df["Market Value (EUROS)"]
 Y_test = df2["MARKET VALUE (EUROS)"]
 
 print(df.columns)
 
 ImportantCols = [
-    "age_",  "Performance_Gls", "Performance_G+A", "Per 90 Minutes_Gls", "Per 90 Minutes_G+A",
+    "age_", "Performance_Gls", "Performance_G+A", "Per 90 Minutes_Gls", "Per 90 Minutes_G+A",
     "Performance_G-PK", "Per 90 Minutes_G+A-PK", "Per 90 Minutes_G-PK",
     "Per 90 Minutes_xG+xAG", "Expected_npxG+xAG", "Expected_xG", "Expected_npxG",
     "Per 90 Minutes_xG", "Per 90 Minutes_npxG", "Progression_PrgP", "Performance_Ast", "Per 90 Minutes_Ast", "Expected_xAG",
-    "Performance_PKatt", 
+    "Performance_PKatt", "pos_", "team"
 ] #Ones we agreed on based on the heatmap and scatter plots. #More can be added for better accuracy along with teams
 
 df = df[ImportantCols]
 df2 = df2[ImportantCols]
 
-X = df
-X_test = df2
+# Combine for encoding
+combined = pd.concat([df, df2], axis=0)
 
-print(X.isnull().sum())
-print(X_test.isnull().sum())
+# One-hot encode team and position
+combined_encoded = pd.get_dummies(combined, columns=["team", "pos_"], drop_first=False)
 
-model = RandomForestRegressor(random_state= 15)
+# Split into train and test
+X = combined_encoded.iloc[:len(df)]
+X_test = combined_encoded.iloc[len(df):]
+
+model = RandomForestRegressor(random_state= 43, n_estimators= 97) #RS = 29 Best One Along with 43
 
 model.fit(X,Y)
 
@@ -40,7 +49,12 @@ print("R^2 Score:", r2_score(Y_test, predictedresults))
 rmse = np.sqrt(mean_squared_error(Y_test, predictedresults))
 print("Root Mean Squared Error:", rmse)
 
-#Best R^2 I got was 0.4326 and Best MeanSquare Error: 419429118370746.25
+scores = cross_val_score(model, X, Y, cv=5, scoring='r2')
+print("CrossVal R² scores:", scores)
+print("Average R²:", scores.mean())
+
+#Best R^2 I got was 0.4532 
+#This season was very unpredictable so makes sense it's only 0.45 on when compared to 24/25 but 0.5 when cross validated
 
 
 
