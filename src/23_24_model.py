@@ -63,13 +63,16 @@ y_pred = xgb_model.predict(x_test) #Making predictions on the target variable
 rmse = root_mean_squared_error(y_test, y_pred)  #Calculating Root Mean Squared Error
 r2_train = xgb_model.score(x_train, y_train)  #Calculating R^2 score for training data
 r2_test = r2_score(y_test, y_pred)  #Calculating R^2 score
+scores = cross_val_score(xgb_model, x, y, cv=5, scoring='r2') #Ensuring the model is not overfitting by cross-validation
+df_results = pd.DataFrame({'Actual': y_test.values, 'Predicted': y_pred}) #Creating a df to store the pred vs actual values
 
 print(f'Root Mean Squared Error: {rmse}')
 print(f'R^2 (Train): {r2_train}')  
 print(f'R^2 (Test): {r2_test}')  
-
-scores = cross_val_score(xgb_model, x, y, cv=5, scoring='r2') #Ensuring the model is not overfitting by cross-validation
 print("Average R^2:", scores.mean())
+print("\nActual vs. Predicted Market Values (first 10):")
+print(df_results.head(10).to_string(index=False))
+
 
 #Root Mean Squared Error: 14572454.0   #The best results I got
 #R^2 (Train): 0.9236470460891724

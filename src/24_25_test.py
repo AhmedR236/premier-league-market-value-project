@@ -59,6 +59,7 @@ print(f'Root Mean Squared Error: {rmse}')
 print(f'R^2 Test: {r2}')
 print(f'Average R^2: {scores.mean()}')
 
+
 #Root Mean Squared Error: 14940793.0   #This testing is not actually bad since this season had a lot of unexpected twists to huge teams. Such as underperformance, and large number of injuries
 #R^2 Test: 0.4724881052970886
 #Average R^2: 0.4245340943336487   
