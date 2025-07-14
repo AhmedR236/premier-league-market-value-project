@@ -45,10 +45,9 @@ predictedresults = model.predict(X_test)
 
 print("Mean Square Error:", mean_squared_error(Y_test, predictedresults))
 print("R^2 Score:", r2_score(Y_test, predictedresults))
+print("Root Mean Squared Error:", np.sqrt(mean_squared_error(Y_test, predictedresults)))
 
-rmse = np.sqrt(mean_squared_error(Y_test, predictedresults))
-print("Root Mean Squared Error:", rmse)
-
+#Cross-Val
 scores = cross_val_score(model, X, Y, cv=5, scoring='r2')
 print("CrossVal R² scores:", scores)
 print("Average R²:", scores.mean())
