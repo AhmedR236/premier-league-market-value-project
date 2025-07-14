@@ -1,5 +1,5 @@
 -- These statements are from MySQL--------------
--- The outputs were in MyS
+-- The outputs were in MySQL--
 CREATE TABLE raw_merged_23_24_filtersql (
   league VARCHAR(50),
   season INT,		  
