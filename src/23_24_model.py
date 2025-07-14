@@ -5,6 +5,7 @@ from sklearn.metrics import root_mean_squared_error, mean_squared_error, r2_scor
 import matplotlib.pyplot as plt
 import joblib
 
+# Ran it in venv in cmd 
 # python src/23_24_model.py
 
 df = pd.read_csv('data/official_23_24.csv')
@@ -54,7 +55,7 @@ max_depth = 2 # If I make the tree deeper it will overfit
 
 xgb_model.fit(x_train, y_train) #Fitting the model
 
-joblib.dump(xgb_model, 'xgb_23_24_model.pkl') #Saving the model to use on 24_25 data
+joblib.dump(xgb_model, 'models/xgb_23_24_model.pkl') #Saving the model to use on 24_25 data
 
 y_pred = xgb_model.predict(x_test) #Making predictions on the target variable
 
@@ -69,6 +70,11 @@ print(f'R^2 (Test): {r2_test}')
 
 scores = cross_val_score(xgb_model, x, y, cv=5, scoring='r2') #Ensuring the model is not overfitting by cross-validation
 print("Average R^2:", scores.mean())
+
+#Root Mean Squared Error: 14572454.0   #The best results I got
+#R^2 (Train): 0.9236470460891724
+#R^2 (Test): 0.6897004246711731
+#Average R^2: 0.5310466885566711
 
 ##################################################################
 
