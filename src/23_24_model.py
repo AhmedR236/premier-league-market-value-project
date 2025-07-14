@@ -4,9 +4,12 @@ from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import root_mean_squared_error, mean_squared_error, r2_score
 import matplotlib.pyplot as plt
 import joblib
+import os
 
 # Ran it in venv in cmd 
 # python src/23_24_model.py
+
+os.makedirs('outputs', exist_ok=True) #saving the outputs in the outputs folder
 
 df = pd.read_csv('data/official_23_24.csv')
 df = df[df['Market Value (EUROS)'] < 100000000] # Filtering out players with market value over 100 million euros, as they are outliers and making model worse
@@ -65,6 +68,8 @@ r2_train = xgb_model.score(x_train, y_train)  #Calculating R^2 score for trainin
 r2_test = r2_score(y_test, y_pred)  #Calculating R^2 score
 scores = cross_val_score(xgb_model, x, y, cv=5, scoring='r2') #Ensuring the model is not overfitting by cross-validation
 df_results = pd.DataFrame({'Actual': y_test.values, 'Predicted': y_pred}) #Creating a df to store the pred vs actual values
+
+df_results.to_csv('outputs/23_24_xgboost_train.csv', index=False) #saving the outputs as a csv
 
 print(f'Root Mean Squared Error: {rmse}')
 print(f'R^2 (Train): {r2_train}')  

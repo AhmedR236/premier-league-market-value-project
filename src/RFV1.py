@@ -4,6 +4,9 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
+import os
+
+os.makedirs('outputs', exist_ok=True) #saving the outputs in the outputs folder #####################################
 
 df = pd.read_csv("../data/official_23_24.csv")
 df2 = pd.read_csv("../data/official_24_25.csv")
@@ -15,6 +18,7 @@ Y = df["Market Value (EUROS)"]
 Y_test = df2["MARKET VALUE (EUROS)"]
 
 print(df.columns)
+
 
 ImportantCols = [
     "age_", "Performance_Gls", "Performance_G+A", "Per 90 Minutes_Gls", "Per 90 Minutes_G+A",
@@ -42,6 +46,10 @@ model = RandomForestRegressor(random_state= 43, n_estimators= 97) #RS = 29 Best 
 model.fit(X,Y)
 
 predictedresults = model.predict(X_test)
+
+df_results = pd.DataFrame({'Actual': Y_test.values, 'Predicted': predictedresults}) #Creating a df to store the pred vs actual values#####################################
+df_results.to_csv('outputs/23_24_randomforest.csv', index=False) #saving the outputs as a csv ###########################################
+
 
 print("Mean Square Error:", mean_squared_error(Y_test, predictedresults))
 print("R^2 Score:", r2_score(Y_test, predictedresults))

@@ -2,11 +2,13 @@ import pandas as pd
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import root_mean_squared_error, mean_squared_error, r2_score
 import joblib
+import os 
 
 # Ran it in venv in cmd 
 # python src/24_25_test.py
 
 model = joblib.load('models/xgb_23_24_model.pkl')
+os.makedirs('outputs', exist_ok=True) #saving the outputs in the outputs folder
 
 features = [
     "age_",
@@ -56,6 +58,7 @@ r2 = r2_score(y2, y2_pred)
 scores = cross_val_score(model, x2, y2, cv=5, scoring='r2') #Ensuring the model is not overfitting by cross-validation
 df_results = pd.DataFrame({'Actual': y2.values, 'Predicted': y2_pred}) #Creating a df to store the pred vs actual values
 
+df_results.to_csv('outputs/24_25_xgboost_test.csv', index=False) #saving the outputs as a csv
 
 print(f'Root Mean Squared Error: {rmse}') 
 print(f'R^2 Test: {r2}')
