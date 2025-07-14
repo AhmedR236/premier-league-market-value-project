@@ -4,7 +4,7 @@ from sklearn.metrics import root_mean_squared_error, mean_squared_error, r2_scor
 import joblib
 
 # Ran it in venv in cmd 
-# python src/24_25_train.py
+# python src/24_25_test.py
 
 model = joblib.load('models/xgb_23_24_model.pkl')
 
@@ -54,10 +54,14 @@ y2_pred = model.predict(x2)
 rmse = root_mean_squared_error(y2, y2_pred) 
 r2 = r2_score(y2, y2_pred)
 scores = cross_val_score(model, x2, y2, cv=5, scoring='r2') #Ensuring the model is not overfitting by cross-validation
+df_results = pd.DataFrame({'Actual': y2.values, 'Predicted': y2_pred}) #Creating a df to store the pred vs actual values
+
 
 print(f'Root Mean Squared Error: {rmse}') 
 print(f'R^2 Test: {r2}')
 print(f'Average R^2: {scores.mean()}')
+print("\nActual vs. Predicted Market Values (first 10):")
+print(df_results.head(10).to_string(index=False))
 
 
 #Root Mean Squared Error: 14940793.0   #This testing is not actually bad since this season had a lot of unexpected twists to huge teams. Such as underperformance, and large number of injuries
