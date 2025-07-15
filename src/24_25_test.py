@@ -7,8 +7,8 @@ import os
 # Ran it in venv in cmd 
 # python src/24_25_test.py
 
-model = joblib.load('models/xgb_23_24_model.pkl')
-os.makedirs('outputs', exist_ok=True) #saving the outputs in the outputs folder
+model = joblib.load('../models/xgb_23_24_model.pkl')
+#os.makedirs('outputs', exist_ok=True) #saving the outputs in the outputs folder
 
 features = [
     "age_",
@@ -35,7 +35,7 @@ features = [
 ]  
 
 
-df2 = pd.read_csv('data/official_24_25.csv')
+df2 = pd.read_csv('../data/official_24_25.csv')
 df2 = df2[df2['MARKET VALUE (EUROS)'] < 100000000] # Filtering out players with market value over 100 million euros, as they are outliers and making model worse
 
 x2 = df2[features]
@@ -58,7 +58,7 @@ r2 = r2_score(y2, y2_pred)
 scores = cross_val_score(model, x2, y2, cv=5, scoring='r2') #Ensuring the model is not overfitting by cross-validation
 df_results = pd.DataFrame({'Actual': y2.values, 'Predicted': y2_pred}) #Creating a df to store the pred vs actual values
 
-df_results.to_csv('outputs/24_25_xgboost_test.csv', index=False) #saving the outputs as a csv
+#df_results.to_csv('outputs/24_25_xgboost_test.csv', index=False) #saving the outputs as a csv
 
 print(f'Root Mean Squared Error: {rmse}') 
 print(f'R^2 Test: {r2}')

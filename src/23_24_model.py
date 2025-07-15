@@ -11,7 +11,7 @@ import os
 
 os.makedirs('outputs', exist_ok=True) #saving the outputs in the outputs folder
 
-df = pd.read_csv('data/official_23_24.csv')
+df = pd.read_csv('../data/official_23_24.csv')
 df = df[df['Market Value (EUROS)'] < 100000000] # Filtering out players with market value over 100 million euros, as they are outliers and making model worse
 
 x = df.copy() # Create a copy of the original DataFrame
@@ -58,7 +58,7 @@ max_depth = 2 # If I make the tree deeper it will overfit
 
 xgb_model.fit(x_train, y_train) #Fitting the model
 
-joblib.dump(xgb_model, 'models/xgb_23_24_model.pkl') #Saving the model to use on 24_25 data
+joblib.dump(xgb_model, '../models/xgb_23_24_model.pkl') #Saving the model to use on 24_25 data
 
 y_pred = xgb_model.predict(x_test) #Making predictions on the target variable
 
@@ -69,7 +69,7 @@ r2_test = r2_score(y_test, y_pred)  #Calculating R^2 score
 scores = cross_val_score(xgb_model, x, y, cv=5, scoring='r2') #Ensuring the model is not overfitting by cross-validation
 df_results = pd.DataFrame({'Actual': y_test.values, 'Predicted': y_pred}) #Creating a df to store the pred vs actual values
 
-df_results.to_csv('outputs/23_24_xgboost_train.csv', index=False) #saving the outputs as a csv
+#df_results.to_csv('outputs/23_24_xgboost_train.csv', index=False) #saving the outputs as a csv
 
 print(f'Root Mean Squared Error: {rmse}')
 print(f'R^2 (Train): {r2_train}')  

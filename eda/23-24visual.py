@@ -3,7 +3,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 
-df = pd.read_csv("data/official_23_24.csv")
+df = pd.read_csv("../data/official_23_24.csv")
 
 numbersonly = df.select_dtypes(include=['int64', 'float64'])#Used to only select columns that have numbers in them (getting rid of name, club etc.)
 

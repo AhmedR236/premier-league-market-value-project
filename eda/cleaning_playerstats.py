@@ -14,7 +14,7 @@ df2 = fbref2.read_player_season_stats(stat_type="standard") #24/25
 dfclean = df[df['Playing Time', 'Min'] >= 2280]
 df2clean = df2[df2['Playing Time', 'Min'] >= 2280]
 
-dfclean.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in dfclean.columns]
+dfclean.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in dfclean.columns] #Flattening Column Names so it is in a format like Performance_Gls
 df2clean.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in df2clean.columns]
 
 

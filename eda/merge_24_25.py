@@ -1,7 +1,7 @@
 import pandas as pd
 
-df1 = pd.read_csv('data/cleaned24_25.csv')
-df2 = pd.read_csv('data/24_25_MV.csv')
+df1 = pd.read_csv('../data/cleaned24_25.csv')
+df2 = pd.read_csv('../data/24_25_MV.csv')
 
 df1['player'] = df1['player'].str.strip().str.lower()  # Fixing player names so they can be merged
 df2['Player Name'] = df2['Player Name'].str.strip().str.lower()  # Fixing player names so they can be merged
