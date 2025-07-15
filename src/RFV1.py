@@ -63,5 +63,10 @@ print("Average R²:", scores.mean())
 #Best R^2 I got was 0.4532 
 #This season was very unpredictable so makes sense it's only 0.45 on when compared to 24/25 but 0.5 when cross validated
 
+model2 = RandomForestRegressor(random_state= 43, n_estimators= 97) 
 
+model2.fit(X_test, Y_test)
+scores2 = cross_val_score(model2, X_test, Y_test, cv=5, scoring='r2')
+print("CrossVal R² scores for model 2:", scores2)
+print("Average R² for model 2:", scores2.mean())
 
